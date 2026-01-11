@@ -1,0 +1,180 @@
+/* ROOT VARIABLES */
+:root {
+    --primary-red: #FF0000;
+    --primary-pink: #FF69B4;
+    --dark-pink: #C71585; 
+    --primary-blue: #0088ff;
+    --text-white: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.5);
+    --bg-dark: #111;
+    --nav-bg: rgba(0, 0, 0, 0.7);
+    --contact-bg: #1f242d;
+    --contact-second-bg: #323946;
+    --contact-main: #D0312D;
+}
+
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    overflow-x: hidden;
+}
+
+/* UNIVERSAL BACKGROUND IMAGES (Ensures they appear on ALL screens) */
+.page { 
+    width: 100%; 
+    min-height: 100vh; 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    position: relative; 
+    display: flex; 
+}
+.page1 { background-image: url("images/P1.jpg"); }
+.page2 { background-image: url("images/P2.jpg"); }
+.page3 { background-image: url("images/P3.jpg"); }
+.page4 { background-image: url("images/P4.jpg"); }
+
+.page1::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 0;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed; top: 30px; left: 0; width: 100%;
+    display: flex; justify-content: center; z-index: 1000;
+}
+.nav-container {
+    background: var(--nav-bg); backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.1); padding: 20px 60px; border-radius: 20px;
+}
+.navbar ul { display: flex; list-style: none; gap: 50px; }
+.nav-link {
+    color: var(--text-dim); text-decoration: none; font-size: 1.1rem;
+    text-transform: uppercase; font-weight: 800; letter-spacing: 2px;
+    transition: 0.3s; position: relative; padding: 5px 0;
+}
+.nav-link.active::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px; background: currentColor; border-radius: 10px;
+}
+
+/* ACTIVE HIGHLIGHTS */
+body.page1-active .nav-link.active { color: var(--primary-red); }
+body.page2-active .nav-link.active { color: #ffffff; }
+body.page3-active .nav-link.active { color: var(--primary-pink); }
+body.page4-active .nav-link.active { color: var(--primary-blue); }
+body.page5-active .nav-link.active { color: var(--contact-main); }
+
+/* CONTENT STYLES */
+.greeting { color: var(--primary-red); }
+.line2 { font-size: 5.5rem; font-weight: 800; letter-spacing: -4px; line-height: 0.9; margin-bottom: 10px; }
+.job-title { font-size: 1.3rem; color: var(--text-dim); margin-bottom: 25px; }
+.bio-grid { display: flex; gap: 50px; margin-bottom: 25px; }
+.label { font-size: 0.75rem; color: var(--primary-red); font-weight: 800; text-transform: uppercase; }
+.catchphrase { border-left: 3px solid var(--primary-red); padding-left: 15px; margin-top: 10px; }
+.description { font-size: 1.1rem; line-height: 1.5; }
+.div5 { display: flex; gap: 30px; padding-top: 20px; }
+.social-links a { color: white; font-size: 1.8rem; transition: 0.3s; }
+
+/* GRID ITEMS */
+.grid-item {
+    position: relative; background: #000; border-radius: 15px;
+    overflow: hidden; border: 2px solid white; transition: 0.4s ease; height: 270px;
+}
+.grid-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: 0.5s; }
+.overlay { 
+    position: absolute; inset: 0; display: flex; flex-direction: column; 
+    justify-content: flex-end; align-items: center; opacity: 0; transition: 0.4s; 
+    padding: 30px; text-align: center; color: #ffffff; 
+}
+.grid-item:hover .overlay { opacity: 1; }
+.page2 .overlay { background: linear-gradient(to bottom, transparent, rgba(50, 50, 50, 0.95) 45%); }
+.page3 .overlay { background: linear-gradient(to bottom, transparent, rgba(199, 21, 133, 0.95) 45%); }
+.page4 .overlay { background: linear-gradient(to bottom, transparent, rgba(0, 136, 255, 0.95) 45%); }
+.open-icon { font-size: 2.2rem; color: white; }
+
+/* ============================================================
+   PC SIZE (Original Grid Layout)
+   ============================================================ */
+@media (min-width: 1400px) {
+    .page1 { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(12, 1fr); }
+    .hero-wrapper { display: contents; } /* Behaves as grid items */
+    .div2, .div3, .div4, .div5 { z-index: 1; grid-column: 3 / 7; padding-left: 30px; }
+    .div2 { grid-row: 3 / 4; align-self: end; font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; }
+    .div3 { grid-row: 4 / 8; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 20px; }
+    .div4 { grid-row: 8 / 10; max-width: 750px; }
+    .div5 { grid-row: 10 / 11; }
+
+    .page2 { justify-content: center; align-items: flex-start; padding-top: 270px; }
+    .page3 { padding-top: 160px; padding-left: 700px; }
+    .page4 { padding-top: 170px; padding-left: 160px; }
+    .template-grid { display: grid; grid-template-columns: repeat(2, 480px); grid-template-rows: repeat(2, 270px); gap: 40px; }
+}
+
+/* ============================================================
+   NEST HUB MAX / TABLET / LAPTOP (Centering Logic)
+   ============================================================ */
+@media (max-width: 1399px) and (min-width: 769px) {
+    .page { justify-content: center; align-items: center; padding: 60px 40px; }
+    
+    /* PERFECT HORIZONTAL & VERTICAL CENTERING */
+    .hero-wrapper {
+        max-width: 750px; /* Constrains text width for better look */
+        width: 90%;
+        text-align: left; /* Text remains left-aligned inside the centered box */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 1;
+    }
+
+    .line2 { font-size: 4.5rem; }
+    .bio-grid { gap: 40px; }
+    
+    .template-grid {
+        display: grid; grid-template-columns: repeat(2, 1fr); 
+        width: 100%; max-width: 950px; gap: 30px;
+    }
+}
+
+/* PHONES */
+@media (max-width: 768px) {
+    .navbar ul { gap: 15px; }
+    .nav-container { padding: 15px 30px; }
+    .nav-link { font-size: 0.8rem; }
+
+    .page { padding: 100px 20px 50px; justify-content: flex-start; align-items: center; }
+    .hero-wrapper { text-align: center; width: 100%; }
+    .line2 { font-size: 3.2rem; }
+    .bio-grid { flex-direction: column; gap: 10px; align-items: center; }
+    .catchphrase { border-left: none; border-top: 3px solid var(--primary-red); padding: 15px 0; }
+    .div5 { justify-content: center; }
+
+    .template-grid { grid-template-columns: 1fr; width: 100%; gap: 20px; }
+}
+
+/* CONTACT & FOOTER */
+.contact-page { min-height: 100vh; background: var(--contact-bg); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 100px 9%; font-family: 'Poppins', sans-serif; }
+.contact-heading { font-size: clamp(2.5rem, 5vw, 4.5rem); color: white; margin-bottom: 30px; text-align: center; }
+.contact-heading span { color: var(--contact-main); }
+.contact-form { max-width: 700px; width: 100%; }
+.contact-input-box { display: flex; justify-content: space-between; flex-wrap: wrap; }
+.contact-input-box input, .contact-form textarea { width: 100%; padding: 15px; background: var(--contact-second-bg); border-radius: 8px; margin: 7px 0; border: none; color: white; font-family: 'Poppins'; }
+.contact-input-box input { width: 49%; }
+@media (max-width: 600px) { .contact-input-box input { width: 100%; } }
+.contact-btn { padding: 12px 28px; background: var(--contact-main); border-radius: 40px; color: white; font-weight: 600; cursor: pointer; border: none; margin-top: 15px; }
+
+.contact-footer { padding: 40px 9%; background: var(--contact-second-bg); position: relative; font-family: 'Poppins'; }
+.footer-text-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; }
+.footer-title-box i { font-size: 4rem; color: var(--contact-main); }
+.footer-info-box { display: flex; gap: 40px; flex-wrap: wrap; }
+.footer-top-btn a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; background: var(--contact-main); border-radius: 8px; color: white; position: absolute; top: 20px; right: 5%; }
+
+/* SCROLL THIMB */
+.scroll-throb-container { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 5; text-align: center; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
